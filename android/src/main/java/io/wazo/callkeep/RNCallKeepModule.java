@@ -203,10 +203,12 @@ public class RNCallKeepModule extends ReactContextBaseJavaModule {
         telecomManager = (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
     }
 
+    @ReactMethod
     public void setSettings(ReadableMap options) {
         if (options == null) {
             return;
         }
+        Log.d(TAG, "[VoiceConnection] setSettings: " + options);
         storeSettings(options);
 
         this._settings = getSettings();
@@ -518,6 +520,11 @@ public class RNCallKeepModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getInitialEvents(Promise promise) {
         promise.resolve(delayedEvents);
+    }
+
+    @ReactMethod
+    public void clearInitialEvents() {
+        delayedEvents = new WritableNativeArray();
     }
 
     @ReactMethod
